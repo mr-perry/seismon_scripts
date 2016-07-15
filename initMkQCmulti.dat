@@ -1,0 +1,34 @@
+% first catalog data file name
+/Users/mrperry/LIGO/ForLIGO.csv
+% Human readable catalog description
+ComCat 2015 - 2016
+% Catalog Format 1 = ComCat CSV; 2 = libcomcat CSV format
+2
+% Second catalog Data file name
+/Users/mrperry/LIGO/LHO_LibComCat.csv
+% Human readable catalog description
+Event from LLO Analysis
+% Catalog Format 1 = ComCat CSV; 2 = libcomcat CSV format
+2
+% Time Window
+16
+% Distance Range
+100
+% Region
+all
+% Set Mag Limit
+-10
+% Set Mag Difference Max
+9999
+% Set Depth difference tolerance
+9999
+% Diretory to put report in
+Report
+% File format for report
+html
+% show code in report (true/false)
+false
+% Display event list
+yes
+% Compared Authoritative IDs
+no
