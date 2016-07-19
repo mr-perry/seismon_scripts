@@ -1,13 +1,13 @@
 % first catalog data file name
-/Users/mrperry/LIGO/ForLIGO.csv
+/Users/mrperry/LIGO/Data/LibComCat/LLO_LibComCat.csv
 % Human readable catalog description
-ComCat 2015 - 2016
+LLO Observations
 % Catalog Format 1 = ComCat CSV; 2 = libcomcat CSV format
 2
 % Second catalog Data file name
-/Users/mrperry/LIGO/LHO_LibComCat.csv
+/Users/mrperry/LIGO/Data/LibComCat/ComCat_Auth.csv
 % Human readable catalog description
-Event from LLO Analysis
+Authoritative ComCat
 % Catalog Format 1 = ComCat CSV; 2 = libcomcat CSV format
 2
 % Time Window
@@ -23,7 +23,7 @@ all
 % Set Depth difference tolerance
 9999
 % Diretory to put report in
-Report
+LLO_Report
 % File format for report
 html
 % show code in report (true/false)
