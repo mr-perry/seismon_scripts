@@ -96,8 +96,8 @@ function [] = plot_LIGO_events(data1,data2,dataname1,dataname2)
                 end
             end
         end
-        h5 = plot(-119.407656+360,46.455144,'ms','MarkerSize',20); % Hanford;
-        h6 = plot(-90.774242+360,30.562894,'md','MarkerSize',20); % Livingston
+        h5 = plot(-119.407656+360,46.455144,'ms','MarkerSize',15); % Hanford;
+        h6 = plot(-90.774242+360,30.562894,'md','MarkerSize',15); % Livingston
         %
         % Get XTickLabel
         %

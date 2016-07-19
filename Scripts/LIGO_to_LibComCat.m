@@ -1,4 +1,12 @@
 function [] = LIGO_to_LibComCat(LIGO_format_data, out_fname)
+[~,I] = sort(LIGO_format_data(:,1),'ascend');
+%
+% Put LIGO Data In Order
+%
+LIGO_format_data = LIGO_format_data(I,:);
+%
+% Create Table
+%
 OT = cell(size(LIGO_format_data,1),1);
 EvType = cell(size(LIGO_format_data,1),1);
 EventID = zeros(size(LIGO_format_data,1),1);
