@@ -1,4 +1,4 @@
-function [data] = import_LIGO(filename)
+function [data] = import_LIGO(filename,GPSTimeConvert)
 %% Initialize variables.
 delimiter = ' ';
 startRow = 1;
@@ -49,33 +49,49 @@ fclose(fileID);
 % script.
 
 %% Allocate imported array to column variable names
-EqGPSTime = tconvert(dataArray{:, 1});
+
 Mag = dataArray{:, 2};
-P_GpsTime = tconvert(dataArray{:, 3});
-S_GpsTime = tconvert(dataArray{:, 4});
-r2_GpsTime = tconvert(dataArray{:, 5});
-r35_GpsTime = tconvert(dataArray{:, 6});
-r5_GpsTime = tconvert(dataArray{:, 7});
 pgm = dataArray{:, 8};
-lb_GpsTime = tconvert(dataArray{:, 9});
-ub_GpsTime = tconvert(dataArray{:, 10});
 Latitude = dataArray{:, 11};
 Longitude = dataArray{:, 12};
 Distance = dataArray{:, 13};
 Depth = dataArray{:, 14};
-pgv_GpsTime = tconvert(dataArray{:, 15});
 pgv = dataArray{:, 16};
-pga_GpsTime = tconvert(dataArray{:, 17});
 pga = dataArray{:, 18};
-pgd_GpsTime = tconvert(dataArray{:, 19});
 pgd = dataArray{:, 20};
 LockLossFlag = dataArray{:, 21};
-for ii = 1 : length(dataArray{:,22})
-    if dataArray{1,22}(ii) >=0 
-        LockLoss_GpsTime(ii,1) = tconvert(dataArray{1, 22}(ii));
-    else
-        LockLoss_GpsTime(ii,1) = dataArray{1, 22}(ii);
+if GPSTimeConvert == 1
+    EqGPSTime = tconvert(dataArray{:, 1});
+    P_GpsTime = tconvert(dataArray{:, 3});
+    S_GpsTime = tconvert(dataArray{:, 4});
+    r2_GpsTime = tconvert(dataArray{:, 5});
+    r35_GpsTime = tconvert(dataArray{:, 6});
+    r5_GpsTime = tconvert(dataArray{:, 7});
+    lb_GpsTime = tconvert(dataArray{:, 9});
+    ub_GpsTime = tconvert(dataArray{:, 10});
+    pgv_GpsTime = tconvert(dataArray{:, 15});
+    pga_GpsTime = tconvert(dataArray{:, 17});
+    pgd_GpsTime = tconvert(dataArray{:, 19});
+    for ii = 1 : length(dataArray{:,22})
+        if dataArray{1,22}(ii) >=0 
+            LockLoss_GpsTime(ii,1) = tconvert(dataArray{1, 22}(ii));
+        else
+            LockLoss_GpsTime(ii,1) = dataArray{1, 22}(ii);
+        end
     end
+else
+    EqGPSTime = dataArray{:, 1};
+    P_GpsTime = dataArray{:, 3};
+    S_GpsTime = dataArray{:, 4};
+    r2_GpsTime = dataArray{:, 5};
+    r35_GpsTime = dataArray{:, 6};
+    r5_GpsTime = dataArray{:, 7};
+    lb_GpsTime = dataArray{:, 9};
+    ub_GpsTime = dataArray{:, 10};
+    pgv_GpsTime = dataArray{:, 15};
+    pga_GpsTime = dataArray{:, 17};
+    pgd_GpsTime = dataArray{:, 19};
+    LockLoss_GpsTime(:,1) = dataArray{:, 22};
 end
 data = [EqGPSTime, Mag, P_GpsTime, S_GpsTime, r2_GpsTime, r35_GpsTime, ...
     r5_GpsTime, pgm, lb_GpsTime,ub_GpsTime,Latitude,Longitude,Distance,...

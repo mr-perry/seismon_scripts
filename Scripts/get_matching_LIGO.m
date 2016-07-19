@@ -1,4 +1,5 @@
-function [matching_data, missing_data] =  get_matching_LIGO(LIGO_data, NEIC_data, tmax, dmax)    
+function [matching_data, missing_data, LIGO_data] = ...
+    get_matching_LIGO(LIGO_data, NEIC_data, tmax, dmax)    
     %
     % Useful variables
     %
@@ -42,7 +43,9 @@ function [matching_data, missing_data] =  get_matching_LIGO(LIGO_data, NEIC_data
     First_Pubs(:,6) = min(First_Pubs,[],2);
     for ii = 1 : length(matching_LIGO_ind(:,2))
         matching_data(ii,28) = First_Pubs(matching_LIGO_ind(ii,2),6);
+        LIGO_data(matching_LIGO_ind(ii,1),23) = First_Pubs(matching_LIGO_ind(ii,2),6);
     end
+    LIGO_data(LIGO_data(:,23)==0,23) = NaN;
     missing_data = LIGO_data(missing_LIGO_ind,:);
     %
     % Sort Data by NEIC OT

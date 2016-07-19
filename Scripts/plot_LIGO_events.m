@@ -43,13 +43,13 @@ function [] = plot_LIGO_events(data1,data2,dataname1,dataname2)
         %
         for ii = 1 : length(data1(:,12))
             if data1(ii,21) == 0
-                if data1(ii,2)>=5.0 && data1(ii,2) < 6
-                    h1 = scatter(data1(ii,12),data1(ii,11),20,[0.5 0.5 0.5],'d');
-                elseif data1(ii,2)>=6.0 && data1(ii,2) < 7
-                    h1 = scatter(data1(ii,12),data1(ii,11),40,[0.5 0.5 0.5],'d');
-                elseif data1(ii,2)>=7.0
-                    h1 = scatter(data1(ii,12),data1(ii,11),60,[0.5 0.5 0.5],'d');
-                end
+%                 if data1(ii,2)>=5.0 && data1(ii,2) < 6
+%                     h1 = scatter(data1(ii,12),data1(ii,11),20,[0.5 0.5 0.5],'d');
+%                 elseif data1(ii,2)>=6.0 && data1(ii,2) < 7
+%                     h1 = scatter(data1(ii,12),data1(ii,11),40,[0.5 0.5 0.5],'d');
+%                 elseif data1(ii,2)>=7.0
+%                     h1 = scatter(data1(ii,12),data1(ii,11),60,[0.5 0.5 0.5],'d');
+%                 end
             elseif data1(ii,21) == 1
                 if data1(ii,2)>=5.0 && data1(ii,2) < 6
                     h2 = scatter(data1(ii,12),data1(ii,11),20,'g','d');
@@ -71,16 +71,16 @@ function [] = plot_LIGO_events(data1,data2,dataname1,dataname2)
         %%
         for ii = 1 : length(data2(:,12))
             if data2(ii,21) == 0
-                if data2(ii,2)>=5.0 && data2(ii,2) < 6
-                    h4 = scatter(data2(ii,12),data2(ii,11),20,[0.5 0.5 0.5],'s');
-                elseif data2(ii,2)>=6.0 && data2(ii,2) < 7.0
-                    h4 = scatter(data2(ii,12),data2(ii,11),40,[0.5 0.5 0.5],'s');
-                elseif data2(ii,2)>=7.0
-                    h4 = scatter(data2(ii,12),data2(ii,11),60,[0.5 0.5 0.5],'s');
-                end
+%                 if data2(ii,2)>=5.0 && data2(ii,2) < 6
+%                     h4 = scatter(data2(ii,12),data2(ii,11),20,[0.5 0.5 0.5],'s');
+%                 elseif data2(ii,2)>=6.0 && data2(ii,2) < 7.0
+%                     h4 = scatter(data2(ii,12),data2(ii,11),40,[0.5 0.5 0.5],'s');
+%                 elseif data2(ii,2)>=7.0
+%                     h4 = scatter(data2(ii,12),data2(ii,11),60,[0.5 0.5 0.5],'s');
+%                 end
             elseif data1(ii,21) == 1
                 if data2(ii,2)>=5.0 && data2(ii,2)<6.0    
-                    scatter(data2(ii,12),data2(ii,11),20,'g','s')
+                    h4 = scatter(data2(ii,12),data2(ii,11),20,'g','s');
                 elseif data2(ii,2)>=6.0 && data2(ii,2)<7.0    
                     scatter(data2(ii,12),data2(ii,11),40,'g','s')
                 elseif data2(ii,2)>=6.0
@@ -113,7 +113,7 @@ function [] = plot_LIGO_events(data1,data2,dataname1,dataname2)
         xlabel('Longitude')
         ylabel('Latitude')
         title('LIGO -- Seismic Events')
-        legend([h1,h2,h3,h4,h5,h6],strcat(dataname1,' -- No Locked'),strcat(dataname1,' -- Locked No Failure'),...
+        legend([h2,h3,h4,h5,h6],strcat(dataname1,' -- Locked No Failure'),...
             strcat(dataname1,' -- Locked and Failure'),strcat(dataname2,' -- Colors same as before'),...
             'LIGO Hanford','LIGO Livingston','Location','SouthOutside')
         grid on
