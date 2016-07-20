@@ -44,6 +44,7 @@ function [matching_data, missing_data, LIGO_data] = ...
     for ii = 1 : length(matching_LIGO_ind(:,2))
         matching_data(ii,28) = First_Pubs(matching_LIGO_ind(ii,2),6);
         LIGO_data(matching_LIGO_ind(ii,1),23) = First_Pubs(matching_LIGO_ind(ii,2),6);
+        LIGO_data(matching_LIGO_ind(ii,1),24:33) = NEIC_data.HypoProg(matching_LIGO_ind(ii,2),:);
     end
     LIGO_data(LIGO_data(:,23)==0,23) = NaN;
     missing_data = LIGO_data(missing_LIGO_ind,:);

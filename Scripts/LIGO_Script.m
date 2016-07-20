@@ -23,8 +23,8 @@ dmax = 100;
 %
 LLO_Output = import_LIGO(LIGO_File1,0);
 LHO_Output = import_LIGO(LIGO_File2,0);
-LLO_Output(:,23) = LLO(:,23);
-LHO_Output(:,23) = LHO(:,23);
+LLO_Output(:,23:33) = LLO(:,23:33);
+LHO_Output(:,23:33) = LHO(:,23:33);
 delim = '\t';
 dlmwrite('~/LIGO/Data/WithPublishTime/LLO_analysis_locks_with_pub_time.txt',LLO_Output,'delimiter',delim,'precision','%10.1f');
 dlmwrite('~/LIGO/Data/WithPublishTime/LHO_analysis_locks_with_pub_time.txt',LHO_Output,'delimiter',delim,'precision','%10.1f');
