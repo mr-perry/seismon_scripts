@@ -1,4 +1,4 @@
-function tout = homestake_tconvert(tin)
+function tout = tconvert(tin)
 %
 % function tout = tconvert(tin)
 %
@@ -34,13 +34,17 @@ leapseconds = [62246102399,62261999999,62293535999,62325071999,62356607999,...
 if isnumeric(tin)
     %calculate date string
     thisday = tin+62483270409;
-    thisday = thisday-sum(thisday(:,ones(1,length(leapseconds)))...
+ %   thisday = thisday-sum(thisday(:,ones(1,length(leapseconds)))...
+ %       >leapseconds(ones(length(thisday),1),:),2);
+    tout = thisday-sum(thisday(:,ones(1,length(leapseconds)))...
         >leapseconds(ones(length(thisday),1),:),2);
-    tout = datestr(thisday/86400);
+  %  tout = datestr(thisday/86400);
 else
     %calculate GPS seconds
     thisday = 86400*datenum(tin);  
     tout = thisday-62483270409+sum(thisday(:,ones(1,length(leapseconds)))...
         >leapseconds(ones(length(thisday),1),:),2);
+end
+
 end
 
