@@ -127,7 +127,7 @@ function [] = LIGO_MagCompare()
         %
         tmax = tmax/sec_per_day;
         % Get matching LIGO events
-        for ii = 1 : length(LIGO_data.OriginTime);
+        for ii = 1 : length(LIGO_data.OriginTime)
             clear C
             C(:,1) = (LIGO_data.OriginTime(ii) - NEIC_data.OriginTime)./tmax;
             C(:,2) = distance_hvrsn(LIGO_data.Latitude(ii), LIGO_data.Longitude(ii),...
@@ -136,7 +136,7 @@ function [] = LIGO_MagCompare()
             if isempty(C)
                 m1=m1+1;
                 missing_LIGO_ind(m1,:) = ii;
-            elseif abs(C(ind,1)) > 1;
+            elseif abs(C(ind,1)) > 1
                 m1=m1+1;
                 missing_LIGO_ind(m1,:) = ii;
             elseif abs(C(ind,1)) <= 1 && C(ind,2) <= 1
@@ -177,5 +177,86 @@ function [] = LIGO_MagCompare()
             'fontsize',18);
         set(gca,'FontSize',14)
         axis([4.0 8.35 min(AverageDiff)-max(STDDiff)-0.2 max(AverageDiff)+max(STDDiff)+0.2])
+    end
+    function tout = tconvert(tin)
+        %
+        % function tout = tconvert(tin)
+        %
+        % Converts between gps (numerical format) and date (string)
+        %
+        % 'tin' can be an entire column vector of date strings or gps seconds
+        %
+        % The list of leap seconds is:
+        %
+        % leapseconds = 86400*datenum(strcat(...
+        %     {'6/30/1972','12/31/1972','12/31/1973','12/31/1974',...
+        %     '12/31/1975','12/31/1976','12/31/1977','12/31/1978','12/31/1979',...
+        %     '6/30/1981','6/30/1982','6/30/1983','6/30/1985','12/31/1987',...
+        %     '12/31/1989','12/31/1990','6/30/1992','6/30/1993','6/30/1994',...
+        %     '12/31/1995','6/30/1997','12/31/1998','12/31/2005','12/31/2008', ...
+        %     '6/30/2012','6/30/2015'},...
+        %     ' 23:59:59'));
+        %
+        % This list needs to be updated whenever a new leap second occurs.
+        %
+        % Last changed: 8/25/2010
+        %
+        % Jan Harms
+        %
+
+        leapseconds = [62246102399,62261999999,62293535999,62325071999,62356607999,...
+            62388230399, 62419766399, 62451302399, 62482838399, 62530099199,...
+            62561635199, 62593171199, 62656329599, 62735299199, 62798457599,...
+            62829993599, 62877254399, 62908790399, 62940326399, 62987759999,...
+            63035020799, 63082454399, 63303379199, 63398073599, 63508320000,...
+            63602928000];
+
+        if isnumeric(tin)
+            %calculate date string
+            thisday = tin+62483270409;
+         %   thisday = thisday-sum(thisday(:,ones(1,length(leapseconds)))...
+         %       >leapseconds(ones(length(thisday),1),:),2);
+            tout = (thisday-sum(thisday(:,ones(1,length(leapseconds)))...
+                >leapseconds(ones(length(thisday),1),:),2))/86400;
+          %  tout = datestr(thisday/86400);
+        else
+            %calculate GPS seconds
+            thisday = 86400*datenum(tin);  
+            tout = thisday-62483270409+sum(thisday(:,ones(1,length(leapseconds)))...
+                >leapseconds(ones(length(thisday),1),:),2);
+        end
+    end
+    function [dist_km] = distance_hvrsn(lat1, lon1, lat2, lon2)
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % Calculate the distance between two points on the globe using the
+        % haversine formula.
+        %
+        % Input:
+        % lat1 - decimal latitude of the first point
+        % lon1 - decimal longitude of the first point
+        % lat2 - decimal latitude of the second point
+        % lon2 - decimal longitude of the second point
+        %
+        % Output
+        % dist_degree - distance in degrees
+        % dist_km - distance in kilometers
+        % 
+        % Last Edited: 13 January 2016 by Matthew R. Perry
+        % Comments: Changed to one output
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        R = 6371000.;    % Earth's radius (m)
+        d2r = pi/180;    % deg = rad*180/pi
+        % Convert degree latitude and longitude to radians
+        si1 = d2r*(lat1);
+        si2 = d2r*(lat2);
+        % Convert latitude and longitude differences to radians 
+        si_del = d2r*(lat2 - lat1);
+        lam_del = d2r*(lon2 - lon1);
+        % Haversine forumlation for distance
+        a = (sin(si_del/2).^2) + (cos(si1).*cos(si2).*(sin(lam_del/2)).^2);
+        c = 2 * atan2(sqrt(a), sqrt(1-a));
+        %Convert distance radians back to degrees
+        dist_km = (R*c)/1000;
+        %dist_degree = c * 180/pi;
     end
 end
